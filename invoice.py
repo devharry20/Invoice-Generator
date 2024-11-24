@@ -12,7 +12,7 @@ from typing import Union
 
 class Invoice:
     def __init__(self,
-                 filename: str = "output.pdf", 
+        filename: str = "output.pdf", 
         rec_addr_name: str = None, 
         rec_addr_addr: str = None, 
         rec_addr_city: str = None,
@@ -68,13 +68,13 @@ class Invoice:
         """Returns a HRFlowable which serves as a horizontal line break"""
         return HRFlowable(width, thickness=thickness, lineCap="round", color=colour, spaceBefore=1, spaceAfter=1, hAlign=h_align, vAlign=v_align, dash=None)
 
-    def create(self, filename: str = "output.pdf", image_path: str = None, image_size: tuple = (150, 50)):
+    def create(self, filename: str = "output.pdf", image_path: str = None, image_size: tuple = (200, 50)):
         """Creates the invoice as a PDF"""
-        # Checking that all arguements have values other than None
         frame = inspect.currentframe()
         args = frame.f_locals
         function_args = {key: value for key, value in args.items() if key not in ["frame"]}
 
+        # Checking that all arguements have values other than None
         for key, value in function_args.items():
             if value == None:
                 raise Exception(f"Argument {key} must have a supplied value")
@@ -85,7 +85,7 @@ class Invoice:
         invoice_date = self.invoice_date.strftime("%d/%m/%Y %H:%M %p")
         BOLD_STYLE = ParagraphStyle(name="Bold", parent=self.styles["Normal"], fontName="Helvetica-Bold")
 
-        image_buffer, image = self._get_image_buffer(image_path)
+        image_buffer, _ = self._get_image_buffer(image_path)
         logo_image = RLImage(image_buffer, image_size[0], image_size[1])
         logo_image.hAlign = "RIGHT"
         elements.append(logo_image)
@@ -129,9 +129,9 @@ class Invoice:
         ]))
         elements.append(table)
 
-        elements.append(Spacer(0, 15))
+        elements.append(Spacer(0, 40))
         elements.append(self._create_horizontal_line_break())
-        elements.append(Spacer(0, 15))
+        elements.append(Spacer(0, 40))
 
         # INVOICE DATA / ITEMS TABLE
 
@@ -140,10 +140,10 @@ class Invoice:
         page_right_margin = document.rightMargin
         container_width = page_width - page_left_margin - page_right_margin
 
-        invoice_data = [["Description", "Quantity", "Unit Price", "VAT", "Amount"]]
+        invoice_data = [["Description", "Quantity", "Unit Price", "Amount"]]
 
         for i in self.items:
-            i = [i[0], i[1], f"£{i[2]}", f"{i[3]}%", f"£{i[1] * i[2]}"]
+            i = [i[0], i[1], f"£{i[2]}", f"£{i[1] * i[2]}"]
             invoice_data.append(i)
 
         col_widths = [container_width * 0.4]  # 40% of available width for Description
@@ -157,9 +157,24 @@ class Invoice:
             ("FONTSIZE", (0, 0), (-1, -1), 8),
             ("BOTTOMPADDING", (0, 0), (-1, 0), 12)
         ])
-
         invoice_table.setStyle(invoice_table_style)
 
         elements.append(invoice_table)
+
+        elements.append(Spacer(0, 40))
+        elements.append(self._create_horizontal_line_break())
+        elements.append(Spacer(0, 40))
+
+        total_sum = sum([i[2] for i in self.items])
+        totals_table = Table([["Items", "VAT", "Total"], [len(invoice_data)-1, "20%", f"£{round(total_sum + total_sum * 0.20, 2)}"]], colWidths=col_widths)
+        totals_table_style = TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "RIGHT"),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 8),
+            ("BOTTOMPADDING", (0, 0), (-1, 0), 12)
+        ])
+        totals_table.setStyle(totals_table_style)
+
+        elements.append(totals_table)
 
         document.build(elements)
