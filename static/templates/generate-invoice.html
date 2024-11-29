@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page</title>
+    <script>
+        window.onload = function() {
+            // Trigger the file download
+            window.location.href = '/file';
+
+            // After download, redirect to another page
+            setTimeout(function() {
+                window.location.href = '/after_download';
+            }, 1000); // Delay for the download to start
+        }
+    </script>
+</head>
+<body>
+    <p>Your file will download shortly. Redirecting...</p>
+</body>
+</html>
