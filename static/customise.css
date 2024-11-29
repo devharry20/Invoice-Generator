@@ -50,9 +50,13 @@ table {
     margin-bottom: 10px;
 }
 
-table th, table td {
+table th {
     padding: 8px;
     text-align: left;
+}
+
+table td {
+    padding-top: 8px;
 }
 
 table th {
