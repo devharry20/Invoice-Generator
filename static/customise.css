@@ -4,27 +4,33 @@ body {
     margin: 20px;
     color: white;
 }
+
 form {
     max-width: 800px;
     margin: 0 auto;
 }
+
 h1, h2 {
     text-align: center;
 }
+
 fieldset {
     margin-bottom: 20px;
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 5px;
 }
+
 legend {
     font-weight: bold;
 }
+
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
+
 input, select, textarea {
     width: 100%;
     padding: 8px;
@@ -37,22 +43,27 @@ input:focus, textarea:focus {
     border-color: rgb(90, 33, 197);
     outline: none;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 10px;
 }
+
 table th, table td {
     padding: 8px;
     text-align: left;
 }
+
 table th {
     background-color: rgb(90, 33, 197);
 }
+
 .add-row {
     margin: 10px 0;
     text-align: right;
 }
+
 .submit-btn {
     display: block;
     width: 100%;
@@ -64,9 +75,11 @@ table th {
     font-size: 16px;
     border-radius: 5px;
 }
+
 .submit-btn:hover {
     background-color: rgb(75, 29, 161);
 }
+
 .add-btn {
     text-decoration: none;
     background-color: rgb(90, 33, 197);
@@ -77,6 +90,7 @@ table th {
     font-size: 16px;
     border-radius: 5px;
 }
+
 .add-btn:hover {
     background-color: rgb(75, 29, 161);
 }
