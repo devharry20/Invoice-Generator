@@ -13,37 +13,35 @@ from typing import Union
 class Invoice:
     def __init__(self,
         filename: str = "output.pdf", 
-        rec_addr_name: str = None, 
-        rec_addr_addr: str = None, 
-        rec_addr_city: str = None,
-        rec_addr_postal: str = None, 
-        rec_addr_country: str = None,
-        sndr_addr_name: str = None,
-        sndr_addr_addr: str = None,
-        sndr_addr_city: str = None,
-        sndr_addr_postal: str = None,
-        sndr_addr_country: str = None,
+        company_addr_name: str = None,
+        company_addr_addr: str = None,
+        company_addr_city: str = None,
+        company_addr_postal: str = None,
+        company_addr_country: str = None,
+        client_addr_name: str = None, 
+        client_addr_addr: str = None, 
+        client_addr_city: str = None,
+        client_addr_postal: str = None, 
+        client_addr_country: str = None,
         invoice_date: datetime = datetime.now(),
         invoice_ref: str = None,
         invoice_num: str = None,
         items: list = []
     ):
         self.filename = filename
-        self.rec_addr_name = rec_addr_name
-        self.rec_addr_addr = rec_addr_addr
-        self.rec_addr_city = rec_addr_city
-        self.rec_addr_postal = rec_addr_postal
-        self.rec_addr_country = rec_addr_country
+        self.company_addr_name = company_addr_name
+        self.company_addr_addr = company_addr_addr
+        self.company_addr_city = company_addr_city
+        self.company_addr_postal = company_addr_postal
+        self.company_addr_country = company_addr_country
+        self.client_addr_name = client_addr_name
+        self.client_addr_addr = client_addr_addr
+        self.client_addr_city = client_addr_city
+        self.client_addr_postal = client_addr_postal
+        self.client_addr_country = client_addr_country
         self.invoice_date = invoice_date
         self.invoice_ref = invoice_ref
         self.invoice_num = invoice_num
-
-        self.sndr_addr_name = sndr_addr_name
-        self.sndr_addr_addr = sndr_addr_addr
-        self.sndr_addr_city = sndr_addr_city
-        self.sndr_addr_postal = sndr_addr_postal
-        self.sndr_addr_country = sndr_addr_country
-
         self.items = items
 
         self.styles = getSampleStyleSheet()
@@ -98,11 +96,11 @@ class Invoice:
             [self._conv_to_paragraph("Invoice Date", BOLD_STYLE), invoice_date], 
             [self._conv_to_paragraph("Invoice Reference", BOLD_STYLE), self.invoice_ref], 
             [self._conv_to_paragraph("Invoice Number", BOLD_STYLE), self.invoice_num],
-            [self._conv_to_paragraph("Sender", BOLD_STYLE), self.sndr_addr_name],
-            [self._conv_to_paragraph("", BOLD_STYLE), self.sndr_addr_addr],
-            [self._conv_to_paragraph("", BOLD_STYLE), self.sndr_addr_city],
-            [self._conv_to_paragraph("", BOLD_STYLE), self.sndr_addr_postal],
-            [self._conv_to_paragraph("", BOLD_STYLE), self.sndr_addr_country]
+            [self._conv_to_paragraph("Sender", BOLD_STYLE), self.company_addr_name],
+            [self._conv_to_paragraph("", BOLD_STYLE), self.company_addr_addr],
+            [self._conv_to_paragraph("", BOLD_STYLE), self.company_addr_city],
+            [self._conv_to_paragraph("", BOLD_STYLE), self.company_addr_postal],
+            [self._conv_to_paragraph("", BOLD_STYLE), self.company_addr_country]
         ]
         right_hand_info_table = Table(right_hand_info_data)
         right_hand_info_table.setStyle(TableStyle([
@@ -112,11 +110,11 @@ class Invoice:
         table_data = [[
             [
                 invoice_title, 
-                self._conv_to_paragraph(self.rec_addr_name), 
-                self._conv_to_paragraph(self.rec_addr_addr), 
-                self._conv_to_paragraph(self.rec_addr_city), 
-                self._conv_to_paragraph(self.rec_addr_postal), 
-                self._conv_to_paragraph(self.rec_addr_country)
+                self._conv_to_paragraph(self.client_addr_name), 
+                self._conv_to_paragraph(self.client_addr_addr), 
+                self._conv_to_paragraph(self.client_addr_city), 
+                self._conv_to_paragraph(self.client_addr_postal), 
+                self._conv_to_paragraph(self.client_addr_country)
             ], 
             right_hand_info_table
         ]]
