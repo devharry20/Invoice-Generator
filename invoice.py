@@ -1,7 +1,7 @@
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Table, Paragraph, TableStyle, Spacer, HRFlowable
 from reportlab.platypus import Image as RLImage
-from reportlab.lib.colors import Color, black, grey, whitesmoke, beige
+from reportlab.lib.colors import Color, black
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from PIL import Image as PILImage
 
