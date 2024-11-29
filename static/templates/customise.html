@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/static/script.js"></script>
+  <link rel="stylesheet" href="/static/customise.css">
+  <title>Invoice Generator</title>
+</head>
+<body>
+
+  <h1>Invoice Generator</h1>
+  <form action="/generate-invoice" method="post">
+    
+    <fieldset>
+      <legend>Company Details</legend>
+      <label for="company_name">Company Name</label>
+      <input type="text" id="company_name" name="company_name" required>
+
+      <label for="company_address">Company Address</label>
+      <input id="company_address" name="company_address" required></input>
+
+      <label for="company_city">Company City</label>
+      <input id="company_city" name="company_city" required></input>
+
+      <label for="company_postcode">Company Postcode</label>
+      <input id="company_postcode" name="company_postcode" required></input>
+
+      <label for="company_country">Country</label>
+      <input type="text" id="company_country" name="company_country" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Client Details</legend>
+      <label for="client_name">Client Name</label>
+      <input type="text" id="client_name" name="client_name" required>
+
+      <label for="client_address">Client Address</label>
+      <input id="client_address" name="client_address" required></input>
+
+      <label for="client_city">Client City</label>
+      <input id="client_city" name="client_city" required></input>
+
+      <label for="client_postcode">Company Postcode</label>
+      <input id="client_postcode" name="client_postcode" required></input>
+
+      <label for="client_country">Country</label>
+      <input type="text" id="client_country" name="client_country" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Invoice Metadata</legend>
+      <label for="invoice_date">Invoice Date</label>
+      <input type="datetime-local" id="invoice_date" name="invoice_date" required>
+
+      <label for="invoice_ref">Invoice Reference</label>
+      <input type="text" id="invoice_ref" name="invoice_ref" required>
+
+      <label for="invoice_num">Invoice Number</label>
+      <input type="text" id="invoice_num" name="invoice_num" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Invoice Details</legend>
+      <table id="invoice-items">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="description[]" required></td>
+            <td><input type="number" name="quantity[]" min="1" required></td>
+            <td><input type="number" name="unit_price[]" step="0.01" required></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="add-row">
+        <a href="#" class="add-btn" onclick="addRow(); event.preventDefault();">Add Row</a>
+      </div>
+    </fieldset>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+body {
+    background: linear-gradient(90deg, rgba(10,10,10,1) 7%, rgba(16,7,43,1) 21%, rgba(33,23,61,1) 33%, rgba(22,13,47,1) 69%, rgba(12,5,32,1) 79%, rgba(18,14,31,1) 89%, rgba(10,10,10,1) 100%);
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: white;
+}
+form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+h1, h2 {
+    text-align: center;
+}
+fieldset {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+legend {
+    font-weight: bold;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+    border: 3px solid;
+    border-color: rgb(90, 33, 197);
+    outline: none;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+table th, table td {
+    padding: 8px;
+    text-align: left;
+}
+table th {
+    background-color: rgb(90, 33, 197);
+}
+.add-row {
+    margin: 10px 0;
+    text-align: right;
+}
+.submit-btn {
+    display: block;
+    width: 100%;
+    background-color: rgb(90, 33, 197);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.submit-btn:hover {
+    background-color: rgb(75, 29, 161);
+}
+.add-btn {
+    text-decoration: none;
+    background-color: rgb(90, 33, 197);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.add-btn:hover {
+    background-color: rgb(75, 29, 161);
+}
