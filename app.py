@@ -1,14 +1,15 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file, redirect, url_for
 
 from invoice import Invoice
 
 app = Flask(__name__, template_folder=os.getcwd() + r"\static\templates")
+FILE_NAME = "output.pdf"
 
 @app.route("/", methods=["GET"])
-def hello_world():
+def index():
     return render_template("index.html")
 
 @app.route("/customise", methods=["GET", "POST"])
@@ -34,35 +35,12 @@ def generate_invoice():
     quantities = request.form.getlist('quantity[]')
     unit_prices = request.form.getlist('unit_price[]')
     items = [[descriptions[i], float(quantities[i]), float(unit_prices[i])] for i in range(len(descriptions))]
-
-    data = {
-        "company_name": company_name,
-        "company_address": company_address,
-        "company_city": company_city,
-        "company_postcode": company_postcode,
-        "company_country": company_country,
-        "client_name": client_name,
-        "client_address": client_address,
-        "client_city": client_city,
-        "client_postcode": client_postcode,
-        "client_country": client_country,
-        "invoice_date": invoice_date,
-        "invoice_reference": invoice_reference,
-        "invoice_number": invoice_number,
-        "descriptions": descriptions,
-        "quantities": quantities,
-        "unit_prices": unit_prices
-    }
-
-    print(data)
-    print(items)
-
     invoice = Invoice(
         company_addr_name=company_name,
         company_addr_addr=company_address,
         company_addr_city=company_city,
         company_addr_postal=company_postcode,
-        company_addr_country=company_address,
+        company_addr_country=company_country,
         client_addr_name=client_name,
         client_addr_addr=client_address,
         client_addr_city=client_city,
@@ -75,12 +53,19 @@ def generate_invoice():
     )
 
     invoice.create(
-        filename="output.pdf",
+        filename=FILE_NAME,
         image_path=os.getcwd() + r"\static\images\logo.png",
         image_size=(150, 51)   
     )
 
+    return render_template("generate-invoice.html")
 
-    return "hello"
+@app.route("/file")
+def file():
+    return send_file(FILE_NAME, as_attachment=True)
+
+@app.route("/after_download")
+def after_download():
+    return redirect(url_for('index'))
 
 app.run()
