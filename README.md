@@ -4,7 +4,7 @@ This is a full stack application I have created using Python, HTML, CSS & JavaSc
 
 ## Examples
 ### Homepage 
-![Home page](https://i.gyazo.com/e950f825225a3e1089dce133b2f6893f.gif)
+<a href="url"><img src="examples/example-homepage.png" height="474" width="1000" ></a>
 
 ### Customise page
 <a href="url"><img src="examples/example-customise1.png" height="474" width="1000" ></a>
