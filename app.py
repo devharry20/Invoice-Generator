@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Flask, render_template, request, send_file, redirect, url_for
 
-from invoice import Invoice
+from invoices import Invoice, Invoice2
 
 app = Flask(__name__, template_folder=os.getcwd() + r"\static\templates")
 FILE_NAME = "output.pdf"
@@ -35,22 +35,43 @@ def generate_invoice():
     quantities = request.form.getlist('quantity[]')
     unit_prices = request.form.getlist('unit_price[]')
     items = [[descriptions[i], float(quantities[i]), float(unit_prices[i])] for i in range(len(descriptions))]
-    invoice = Invoice(
-        company_addr_name=company_name,
-        company_addr_addr=company_address,
-        company_addr_city=company_city,
-        company_addr_postal=company_postcode,
-        company_addr_country=company_country,
-        client_addr_name=client_name,
-        client_addr_addr=client_address,
-        client_addr_city=client_city,
-        client_addr_postal=client_postcode,
-        client_addr_country=client_country,
-        invoice_date=invoice_date,
-        invoice_ref=invoice_reference,
-        invoice_num=invoice_number,
-        items=items
-    )
+
+    selected_template = request.form.get("template")
+    match selected_template:
+        case "template1":
+            invoice = Invoice(
+                company_addr_name=company_name,
+                company_addr_addr=company_address,
+                company_addr_city=company_city,
+                company_addr_postal=company_postcode,
+                company_addr_country=company_country,
+                client_addr_name=client_name,
+                client_addr_addr=client_address,
+                client_addr_city=client_city,
+                client_addr_postal=client_postcode,
+                client_addr_country=client_country,
+                invoice_date=invoice_date,
+                invoice_ref=invoice_reference,
+                invoice_num=invoice_number,
+                items=items
+            )
+        case "template2":
+            invoice = Invoice2(
+                company_addr_name=company_name,
+                company_addr_addr=company_address,
+                company_addr_city=company_city,
+                company_addr_postal=company_postcode,
+                company_addr_country=company_country,
+                client_addr_name=client_name,
+                client_addr_addr=client_address,
+                client_addr_city=client_city,
+                client_addr_postal=client_postcode,
+                client_addr_country=client_country,
+                invoice_date=invoice_date,
+                invoice_ref=invoice_reference,
+                invoice_num=invoice_number,
+                items=items
+            )
 
     invoice.create(
         filename=FILE_NAME,
@@ -62,7 +83,10 @@ def generate_invoice():
 
 @app.route("/file")
 def file():
-    return send_file(FILE_NAME, as_attachment=True)
+    response = send_file("output.pdf")
+    response.headers["Content-Disposition"] = "attachment; filename=output.pdf"
+    
+    return response
 
 @app.route("/after_download")
 def after_download():
