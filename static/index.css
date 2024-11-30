@@ -40,6 +40,7 @@ body {
 
 .nav-item a {
     color: rgb(90, 33, 197);
+    font-size: 1.25rem;
 }
 
 .customise-button {
@@ -47,11 +48,19 @@ body {
 }
 
 .text {
-    margin: 2rem 0 4rem 0;
+    margin: 2rem 0 3rem 0;
+}
+
+.text h1 {
+    font-size: 4.3rem;
+}
+
+.text p {
+    font-size: 1.5rem;
 }
 
 #changing-text {
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: bold;
     color: rgb(90, 33, 197);
     margin: 0 0 2rem 0;
@@ -59,11 +68,28 @@ body {
 }
 
 #animated-text-first {
+    font-size: 1.5rem;
     color: white;
 }
 
 .animated-text {
     margin: 0 0 1.5rem 0;
+}
+
+.examples {
+    margin-top: 3rem;
+}
+
+.examples img {
+    width: 35%;
+    height: 15%;
+    opacity: 0.9;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
+.examples h1 {
+    font-size: 2rem;
 }
 
 @keyframes gradient {
