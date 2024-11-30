@@ -1,7 +1,10 @@
 body {
-    background: linear-gradient(90deg, rgba(10,10,10,1) 7%, rgba(16,7,43,1) 21%, rgba(33,23,61,1) 33%, rgba(22,13,47,1) 69%, rgba(12,5,32,1) 79%, rgba(18,14,31,1) 89%, rgba(10,10,10,1) 100%);
     font-family: "Raleway", sans-serif;
-    overflow-x: hidden;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(52, 16, 143) 38%, rgb(35, 10, 99) 68%, rgb(27, 8, 77) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
 }
 
 .heading h1 {
@@ -61,6 +64,18 @@ body {
 
 .animated-text {
     margin: 0 0 1.5rem 0;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
 /* Mobile Responsive Styles */
