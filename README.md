@@ -4,11 +4,11 @@ This is a full stack application I have created using Python, HTML, CSS & JavaSc
 
 ## Examples
 ### Homepage 
-<a href="url"><img src="examples/example-homepage.png" height="474" width="1000" ></a>
+<a href="url"><img src="examples/example-homepage.png"></a>
 
 ### Customise page
-<a href="url"><img src="examples/example-customise1.png" height="474" width="1000" ></a>
-<a href="url"><img src="examples/example-customise2.png" height="350" width="1000" ></a>
+<a href="url"><img src="examples/example-customise1.png"></a>
+<a href="url"><img src="examples/example-customise2.png"></a>
 
 ### Output 
 ![Output](examples/example-output.png)
