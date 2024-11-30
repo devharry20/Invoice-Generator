@@ -1,14 +1,13 @@
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Table, Paragraph, TableStyle, Spacer, HRFlowable
 from reportlab.platypus import Image as RLImage
-from reportlab.lib.colors import Color, black
+from reportlab.lib.colors import Color, black, gray, HexColor
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from PIL import Image as PILImage
 
 import inspect
 from datetime import datetime
 from io import BytesIO
-from typing import Union
 
 class Invoice:
     def __init__(self,
@@ -173,6 +172,116 @@ class Invoice:
         ])
         totals_table.setStyle(totals_table_style)
 
+        elements.append(totals_table)
+
+        document.build(elements)
+
+
+class Invoice2(Invoice):
+    def create(self, filename: str = "output.pdf", image_path: str = None, image_size: tuple = (100, 50)):
+        """Creates the invoice as a PDF"""
+        document = SimpleDocTemplate(filename, pagesize=A4, leftMargin=40, rightMargin=40)
+        elements = []
+
+        # HEADER
+        if image_path:
+            image_buffer, _ = self._get_image_buffer(image_path)
+            logo_image = RLImage(image_buffer, image_size[0], image_size[1])
+            logo_image.hAlign = "CENTER"
+            elements.append(logo_image)
+        
+        # HEADING
+        elements.append(Spacer(0, 20))
+        header_style = ParagraphStyle(name="Header", fontName="Helvetica-Bold", fontSize=20, alignment=1)  # Center aligned
+        elements.append(Paragraph("INVOICE", header_style))
+        elements.append(Spacer(0, 20))
+        elements.append(self._create_horizontal_line_break())
+        elements.append(Spacer(0, 40))
+
+        # COMPANY / CLIENT INFORMATION
+        address_style = ParagraphStyle(name="Address", fontName="Helvetica", fontSize=10)
+        bold_style = ParagraphStyle(name="Bold", fontName="Helvetica-Bold", fontSize=10)
+
+        company_address = [
+            Paragraph(f"<b>{self.company_addr_name}</b>", bold_style),
+            Paragraph(self.company_addr_addr, address_style),
+            Paragraph(self.company_addr_city, address_style),
+            Paragraph(self.company_addr_postal, address_style),
+            Paragraph(self.company_addr_country, address_style),
+        ]
+        
+        client_address = [
+            Paragraph(f"<b>{self.client_addr_name}</b>", bold_style),
+            Paragraph(self.client_addr_addr, address_style),
+            Paragraph(self.client_addr_city, address_style),
+            Paragraph(self.client_addr_postal, address_style),
+            Paragraph(self.client_addr_country, address_style),
+        ]
+        
+        invoice_info_data = [
+            [Paragraph("Invoice Date:", bold_style), self.invoice_date.strftime("%d/%m/%Y")],
+            [Paragraph("Invoice Ref:", bold_style), self.invoice_ref],
+            [Paragraph("Invoice No:", bold_style), self.invoice_num],
+        ]
+        invoice_info_table = Table(invoice_info_data, hAlign="RIGHT")
+        invoice_info_table.setStyle(TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "LEFT"),
+            ("FONTNAME", (0, 0), (-1, -1), "Helvetica"),
+            ("FONTSIZE", (0, 0), (-1, -1), 10),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ]))
+
+        combined_data = [
+            [company_address, client_address, invoice_info_table]
+        ]
+        combined_table = Table(combined_data, colWidths=["33%", "33%", "33%"])
+        combined_table.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ]))
+        elements.append(combined_table)
+
+        elements.append(Spacer(0, 30))
+        elements.append(self._create_horizontal_line_break(colour=HexColor("#cccccc")))
+        elements.append(Spacer(0, 20))
+
+        # ITEM DATA
+        table_header = ["Description", "Quantity", "Unit Price", "Amount"]
+        invoice_data = [table_header]
+        
+        for item in self.items:
+            description, quantity, unit_price = item
+            amount = quantity * unit_price
+            invoice_data.append([description, quantity, f"£{unit_price:.2f}", f"£{amount:.2f}"])
+
+        item_table = Table(invoice_data, colWidths=[250, 60, 60, 80])
+        item_table.setStyle(TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("BACKGROUND", (0, 0), (-1, 0), gray),
+            ("TEXTCOLOR", (0, 0), (-1, 0), HexColor("#ffffff")),
+            ("LINEBELOW", (0, 0), (-1, -1), 0.5, black),
+            ("FONTSIZE", (0, 0), (-1, -1), 10),
+        ]))
+        elements.append(item_table)
+
+        elements.append(Spacer(0, 30))
+
+        total_items = len(self.items)
+        total_sum = sum(item[1] * item[2] for item in self.items)
+        vat = total_sum * 0.2
+        grand_total = total_sum + vat
+
+        totals_data = [
+            ["Items:", total_items],
+            ["VAT (20%):", f"£{vat:.2f}"],
+            ["Total:", f"£{grand_total:.2f}"],
+        ]
+        totals_table = Table(totals_data, colWidths=[400, 80], hAlign="RIGHT")
+        totals_table.setStyle(TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "RIGHT"),
+            ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 10)
+        ]))
         elements.append(totals_table)
 
         document.build(elements)
