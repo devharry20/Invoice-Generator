@@ -11,4 +11,6 @@ This is a full stack application I have created using Python, HTML, CSS & JavaSc
 <a href="url"><img src="examples/example-customise2.png"></a>
 
 ### Output 
-![Output](examples/example-output.png)
+Template 1             |  Template 2
+:-------------------------:|:-------------------------:
+![](/examples/example-output1.png)  |  ![](/examples/example-output2.png)
