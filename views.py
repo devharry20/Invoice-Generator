@@ -56,7 +56,7 @@ def generate_invoice():
 
     invoice.create(
         filename=FILE_NAME,
-        image_path=os.getcwd() + r"\static\images\logo.png",
+        image_path = os.path.join(os.getcwd(), "static", "images", "logo.png"),
         image_size=(150, 51)   
     )
 
