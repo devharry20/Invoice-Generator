@@ -162,8 +162,8 @@ class Invoice:
         elements.append(self._create_horizontal_line_break())
         elements.append(Spacer(0, 40))
 
-        total_sum = sum([i[2] for i in self.items])
-        totals_table = Table([["Items", "VAT", "Total"], [len(invoice_data)-1, "20%", f"£{round(total_sum + total_sum * 0.20, 2)}"]], colWidths=col_widths)
+        total_sum = sum([x[1] * x[2] for x in self.items])
+        totals_table = Table([["Items", "VAT", "Total"], [len(invoice_data)-1, "20%", f"£{total_sum + (total_sum * 0.2)}"]], colWidths=col_widths)
         totals_table_style = TableStyle([
             ("ALIGN", (0, 0), (-1, -1), "RIGHT"),
             ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
