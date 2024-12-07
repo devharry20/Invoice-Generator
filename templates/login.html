@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Register Account {% endblock %}
+
+{% block content %}
+<form action="/login" method="POST">
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-primary btn-dark">Register</button>
+    <a class="login-hint" href="/register">Don't have an account? Register here</a>
+</form>
+{% endblock %}
