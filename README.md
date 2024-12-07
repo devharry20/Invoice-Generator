@@ -4,7 +4,8 @@ This is a full stack application I have created using Python, HTML, CSS & JavaSc
 
 ## Instructions
 
-Clone or download the project and use `docker build -t invoice-generator .` to build the image, and `docker run -d -p 5000:5000 invoice-generator` to run the image
+Clone or download the project and use `docker build -t invoice-generator .` to build the image \
+`docker run -d -p 5000:5000 invoice-generator` to run the image
 
 ## Examples
 
