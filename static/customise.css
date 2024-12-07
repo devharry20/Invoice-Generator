@@ -1,13 +1,11 @@
 body {
     background: linear-gradient(90deg, rgba(10,10,10,1) 7%, rgba(16,7,43,1) 21%, rgba(33,23,61,1) 33%, rgba(22,13,47,1) 69%, rgba(12,5,32,1) 79%, rgba(18,14,31,1) 89%, rgba(10,10,10,1) 100%);
-    font-family: Arial, sans-serif;
-    margin: 20px;
     color: white;
 }
 
 form {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 
 h1, h2 {
@@ -15,7 +13,7 @@ h1, h2 {
 }
 
 fieldset {
-    margin-bottom: 20px;
+    margin-top: 25px 0 25px 0;
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 5px;
@@ -78,6 +76,7 @@ table th {
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
+    margin-top: 2rem;
 }
 
 .submit-btn:hover {
@@ -97,4 +96,6 @@ table th {
 
 .add-btn:hover {
     background-color: rgb(75, 29, 161);
+    text-decoration: none;
+    color: white;
 }

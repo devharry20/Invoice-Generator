@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
+
+{% block title %} Generate Invoice {% endblock %}
+
+{% block content %}
   <script src="/static/script.js"></script>
   <link rel="stylesheet" href="/static/customise.css">
-  <title>Invoice Generator</title>
-</head>
-<body>
 
-  <h1>Invoice Generator</h1>
   <form action="/generate-invoice" method="post">
     
     <fieldset>
@@ -85,6 +81,4 @@
 
     <button type="submit" class="submit-btn">Submit</button>
   </form>
-
-</body>
-</html>
+{% endblock %}
